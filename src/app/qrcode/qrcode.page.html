@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>QrCode</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">QrCode</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+
+    <div class="xd">
+      <label>Seleccione cámara: </label>
+      <select #selectList (change)="selectCamera(selectList.value)">
+        <option *ngFor="let camera of cameras" value={{camera.label}}>
+          {{ camera.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="labelqr">
+      <label>LECTOR QR</label>
+    </div>
+
+    <zxing-scanner style="width: 500px;" [enable]="scannerEnabled" [device]="myDevice"
+      (camerasFound)="camerasFoundHandler($event)" (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
+    <p *ngFor="let result of results">{{result}}</p>
+    <br>
+    <ion-button expand="block" (click)="backtohome()">Volver a home</ion-button>
+
+  </div>
+
+
+</ion-content>

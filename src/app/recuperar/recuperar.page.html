@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Recuperar Contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!--  -->
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Recuperar Contraseña</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <form>
+   <div class="nombre"><ion-label id="nombre1">{{ nombre }}</ion-label></div>
+    <ion-item>
+      <ion-label position="floating">Nueva Contraseña</ion-label>
+      <ion-input  name="contrasenad" id="contrasenad" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Repita Nueva Contraseña</ion-label>
+      <ion-input  name="confirmarc" id="confirmarc" required></ion-input>
+    </ion-item>
+  </form>
+  <ion-card>
+    <ion-button expand="block" (click)="confirmar()">Cambiar</ion-button>
+    <ion-button expand="block" (click)="backtohome()">Volver a home</ion-button>
+  </ion-card>
+</ion-content>

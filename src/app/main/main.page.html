@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>main</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Clases</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+    <ion-card>
+     
+      <ion-card-header>
+        <ion-card-title>Información clase</ion-card-title>
+      </ion-card-header>
+   
+     
+      <div class="datos">
+      <ion-card-content>
+        <br>
+        <ion-label id="nombreprof">{{ nombreprof }}</ion-label>
+        <br>
+        <ion-label id="hora">{{ hora }}</ion-label>
+        <br>
+        <ion-label id="sala">{{ sala }}</ion-label> 
+        <br>
+        <ion-label id="fechaActual"> {{ fechaActual }} </ion-label>  
+      </ion-card-content>
+    </div>
+
+      <ion-card-header>
+        <ion-card-title>Información alumno</ion-card-title>
+      </ion-card-header>
+
+       <div class="datos">
+        <ion-card-content>
+        <br>
+        <ion-label id="nombrealumno">{{ nombrealumno }}</ion-label>
+        <br>
+        <ion-label id="rut">{{ rut }}</ion-label>
+          
+        </ion-card-content>
+      </div> 
+
+      <div>
+        <ion-card-content>
+          <br>
+          <ion-label id="horaActual"> {{ horaActual }} </ion-label> 
+     
+        </ion-card-content>
+      </div>
+    </ion-card>
+    <ion-button expand="block" (click)="backtohome()">Volver a home</ion-button>
+  </div>
+</ion-content>
