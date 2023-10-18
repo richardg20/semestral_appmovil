@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-main',
@@ -19,13 +20,26 @@ export class MainPage implements OnInit {
   horaActual: string='';
   fechaActual: string='';
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, private storage:Storage) { }
 
-  ngOnInit() {
-    this.infoclase();
-    this.horasystem();
-  }
+  rutstorage: string = "";
+  nomnbreAstorage: string = ""; 
+  nombrePstorage: string = "";
+  salastorage: string = ""; 
+  horastorage: string = "";
 
+  async ngOnInit() {
+    try {
+      this.rutstorage = await this.storage.get('rut');
+      this.nomnbreAstorage = await this.storage.get('nombre');
+      this.nombrePstorage = await this.storage.get('nombrealumno');
+      this.salastorage = await this.storage.get('sala');
+      this.horastorage = await this.storage.get('hora');
+    } catch (error) {
+      console.error('Error al obtener datos del almacenamiento:', error);
+    }
+    }
+   
   backtohome() {
     this.navCtrl.navigateForward('/home');
   }

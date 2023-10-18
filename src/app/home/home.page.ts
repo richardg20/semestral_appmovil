@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-home',
@@ -11,13 +12,29 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage {
 
-  constructor(private navCtrl: NavController, private animationCtrl: AnimationController, private alertController: AlertController) {}
+  constructor(private navCtrl: NavController, private animationCtrl: AnimationController, private alertController: AlertController, private storage:Storage) {}
+
+  rut: string="";
+
+  async ngOnInit() {
+    await this.storage.create();
+    this.updateRut();
+  }
+
+  ionViewWillEnter() {
+    this.updateRut();
+  }
+
+  async updateRut() {
+    this.rut = await this.storage.get("rut");
+    console.log(this.rut);
+  }
 
   iralogin() {
 
-    const rut =localStorage.getItem('rut');
+    //const rut =localStorage.getItem('rut');
 
-    if(rut){
+    if(this.rut!==null){
       this.navCtrl.navigateForward('/login');
     }else{
       this.presentAlert();
@@ -40,9 +57,9 @@ export class HomePage {
   }
 
   recuperar() {
-    const rut =localStorage.getItem('rut');
+    //const rut =localStorage.getItem('rut');
 
-    if(rut){
+    if(this.rut!==null){
       this.navCtrl.navigateForward('/recuperar');
     }else{
       this.presentAlert();

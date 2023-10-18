@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Result } from '@zxing/library';
 import { BarcodeFormat } from '@zxing/library';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-qrcode',
@@ -18,7 +19,7 @@ export class QrcodePage implements OnInit {
   public results:string[]=[];
   public cameraActive = true;
 
-  constructor(private navCtrl: NavController) {}
+  constructor(private navCtrl: NavController, private storage: Storage) {}
 
   ngOnInit() {
   }
@@ -59,6 +60,9 @@ export class QrcodePage implements OnInit {
     localStorage.setItem('hora',horaclase);
     localStorage.setItem('sala',sala);
 
+    this.storage.set("nombre",nombreprofe);
+    this.storage.set("hora",horaclase);
+    this.storage.set("sala",sala);
 
     console.log(info[0]);
     console.log(info[1]);

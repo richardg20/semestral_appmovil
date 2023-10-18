@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-registro',
@@ -21,9 +22,10 @@ export class RegistroPage implements OnInit {
   contrasena: string = '';
   
 
-  constructor(private navCtrl: NavController, private animationCtrl: AnimationController, private alertController: AlertController) {}
+  constructor(private navCtrl: NavController, private animationCtrl: AnimationController, private alertController: AlertController, private storage: Storage) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    
   }
 
   backtohome() {
@@ -86,15 +88,26 @@ export class RegistroPage implements OnInit {
       if(apellido.length>3 && apellido.length<50){
         if(carrera.length>3 && carrera.length<20){
             if(contrasena.length>2 && contrasena.length<10){
+
+              //guardar datos storage
+
               localStorage.setItem('rut',rut2);
               localStorage.setItem('carrera',carrera);
               localStorage.setItem('apellido',apellido);
               localStorage.setItem('contrasena',contrasena);
               localStorage.setItem('nombrealumno',nombre);
               console.log("asasdasd");
+
+              this.storage.set("rut",rut2);
+              this.storage.set("carrera",carrera);
+              this.storage.set("apellido",apellido);
+              this.storage.set("contrasena",contrasena);
+              this.storage.set("nombrealumno",nombre);
+
               this.limpiarcampos();
               this.regiAlert();
               this.backtohome();
+
             }else{
               console.log("1");
               this.presentAlert();
