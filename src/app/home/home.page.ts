@@ -17,6 +17,7 @@ export class HomePage {
   rut: string="";
 
   async ngOnInit() {
+    
     await this.storage.create();
     this.updateRut();
   }

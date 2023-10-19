@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
   constructor(private navCtrl: NavController,private alertController: AlertController, private storage: Storage) { }
 
   async ngOnInit() {
+    this.storage.create();
     try {
       this.rutstorage = await this.storage.get('rut');
       this.contstorage = await this.storage.get('contrasena');
@@ -23,7 +24,16 @@ export class LoginPage implements OnInit {
       console.error('Error al obtener datos del almacenamiento:', error);
     }
     }
+  
    
+  ionViewWillEnter() {
+      this.datos();
+    }
+
+  async datos(){
+    this.rutstorage = await this.storage.get('rut');
+    this.contstorage = await this.storage.get('contrasena');
+  }  
 
   login(){
 
