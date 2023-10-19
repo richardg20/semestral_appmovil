@@ -14,7 +14,7 @@ export class MainPage implements OnInit {
   sala: string= '';
   hora: string= '';
 
-  nombrealumno: string= '';
+  nombrealumno: string= ''; 
   rut: string= '';
 
   horaActual: string='';
@@ -29,34 +29,54 @@ export class MainPage implements OnInit {
   horastorage: string = "";
 
   async ngOnInit() {
-    try {
+    this.storage.create();
       this.rutstorage = await this.storage.get('rut');
-      this.nomnbreAstorage = await this.storage.get('nombre');
-      this.nombrePstorage = await this.storage.get('nombrealumno');
+      this.nomnbreAstorage = await this.storage.get('nombrealumno');
+      this.nombrePstorage = await this.storage.get('nombre');
       this.salastorage = await this.storage.get('sala');
       this.horastorage = await this.storage.get('hora');
-    } catch (error) {
-      console.error('Error al obtener datos del almacenamiento:', error);
-    }
-    }
-   
+
+      console.log(this.rutstorage)
+      console.log(this.nomnbreAstorage)
+      console.log(this.salastorage)
+      console.log(this.horastorage)
+      console.log(this.nombrePstorage)
+
+  }
+  
+  ionViewWillEnter() {
+    this.info();
+  }
+
+  async info() {
+  
+    this.rutstorage = await this.storage.get('rut');
+    this.nomnbreAstorage = await this.storage.get('nombrealumno');
+    this.nombrePstorage = await this.storage.get('nombre');
+    this.salastorage = await this.storage.get('sala');
+    this.horastorage = await this.storage.get('hora');
+
+    this.infoclase();
+  }
+
   backtohome() {
     this.navCtrl.navigateForward('/home');
   }
   
 
   infoclase(){
-    const nombre = localStorage.getItem('nombre');
-    const hora = localStorage.getItem('hora');
-    const sala = localStorage.getItem('sala');
-    const alumno =localStorage.getItem('nombrealumno');
-    const rut = localStorage.getItem('rut');
+    //const nombre = localStorage.getItem('nombre');
+    //const hora = localStorage.getItem('hora');
+    //const sala = localStorage.getItem('sala');
+    //const alumno =localStorage.getItem('nombrealumno');
+    //const rut = localStorage.getItem('rut');
 
-    this.nombreprof = ''+nombre;
-    this.hora = ''+hora;
-    this.sala = ''+sala;
-    this.nombrealumno='Nombre alumno: '+alumno;
-    this.rut='Rut alumno: '+rut;
+    this.nombreprof = ''+this.nombrePstorage;
+    this.hora = ''+this.horastorage;
+    this.sala = ''+this.salastorage;
+    this.nombrealumno='Nombre alumno: '+this.nomnbreAstorage;
+    this.rut='Rut alumno: '+this.rutstorage;
+    this.horasystem();
   }
 
    horasystem(){
