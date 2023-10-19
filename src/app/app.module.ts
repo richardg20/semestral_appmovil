@@ -11,10 +11,11 @@ import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,NgxScannerQrcodeModule,ZXingScannerModule, IonicStorageModule.forRoot() ],
+  imports: [HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule,NgxScannerQrcodeModule,ZXingScannerModule, IonicStorageModule.forRoot() ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

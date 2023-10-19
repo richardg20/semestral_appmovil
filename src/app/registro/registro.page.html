@@ -42,24 +42,10 @@
     </ion-item>
     <ion-list>
       <ion-item>
-        <ion-select placeholder="Seleccione una region">
+        <ion-select placeholder="Seleccione una región" (ionChange)="onRegionChange($event)">
           <div slot="label">Region</div>
-          <ion-select-option value="Arica y Parinacota">I Arica y Parinacota</ion-select-option>
-          <ion-select-option value="Tarapacá">II Tarapacá</ion-select-option>
-          <ion-select-option value="Antofagasta">III Antofagasta</ion-select-option>
-          <ion-select-option value="Atacama">IV Atacama</ion-select-option>
-          <ion-select-option value="Coquimbo">V Coquimbo</ion-select-option>
-          <ion-select-option value="Valparaíso">VI Valparaíso</ion-select-option>
-          <ion-select-option value="Metropolitana de Santiago">VII Metropolitana de Santiago</ion-select-option>
-          <ion-select-option value="Libertador General Bernardo O'Higgins">VIII Libertador General Bernardo O'Higgins</ion-select-option>
-          <ion-select-option value="Maule">IX Maule</ion-select-option>
-          <ion-select-option value="Región de Ñuble">X Región de Ñuble</ion-select-option>
-          <ion-select-option value="Región del Biobío">XI Región del Biobío</ion-select-option>
-          <ion-select-option value="Región de La Araucanía">XII Región de La Araucanía</ion-select-option>
-          <ion-select-option value="Región de Los Ríos">XIII Región de Los Ríos</ion-select-option>
-          <ion-select-option value="Región de Los Lagos">XIV Región de Los Lagos</ion-select-option>
-          <ion-select-option value="Región de Aysén del General Carlos Ibáñez del Campo">XV Región de Aysén del General Carlos Ibáñez del Campo</ion-select-option>
-          <ion-select-option value="Región de Magallanes y de la Antártica Chilena">XVI Región de Magallanes y de la Antártica Chilena</ion-select-option>
+          <ion-select-option name="region" id="region" *ngFor="let region of regions" [value]="region.id">{{ region.nombre }}</ion-select-option>
+          
         </ion-select>
       </ion-item>
     </ion-list>
@@ -67,9 +53,8 @@
       <ion-item>
         <ion-select placeholder="Seleccione una comuna">
           <div slot="label">Comuna</div>
-          <ion-select-option value="apple">Apple</ion-select-option>
-          <ion-select-option value="banana">Banana</ion-select-option>
-          <ion-select-option value="orange">Orange</ion-select-option>
+          <ion-select-option name="comuna" id="comuna" *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</ion-select-option>
+          
         </ion-select>
       </ion-item>
     </ion-list>
