@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Geolocation } from '@capacitor/geolocation';
+
 
 @Component({
   selector: 'app-main',
@@ -8,6 +10,9 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+
+  latitude: number=0;
+  longitude: number=0;
 
 
   nombreprof: string= '';
@@ -20,13 +25,17 @@ export class MainPage implements OnInit {
   horaActual: string='';
   fechaActual: string='';
 
-  constructor(private navCtrl: NavController, private storage:Storage) { }
+  residencia: string='';
+
+  constructor(private navCtrl: NavController, private storage:Storage, private geolocation:Geolocation) { }
 
   rutstorage: string = "";
   nomnbreAstorage: string = ""; 
   nombrePstorage: string = "";
   salastorage: string = ""; 
   horastorage: string = "";
+  regionstorage: string="";
+  comunastorage: string="";
 
   async ngOnInit() {
     this.storage.create();
@@ -36,18 +45,26 @@ export class MainPage implements OnInit {
       this.salastorage = await this.storage.get('sala');
       this.horastorage = await this.storage.get('hora');
 
+      this.regionstorage = await this.storage.get('region');
+      this.comunastorage = await this.storage.get('comuna');
+
       console.log(this.rutstorage)
       console.log(this.nomnbreAstorage)
       console.log(this.salastorage)
       console.log(this.horastorage)
       console.log(this.nombrePstorage)
 
-  }
+      const coordinates = await Geolocation.getCurrentPosition();
+      //console.log('Current position:', coordinates);
+      //console.log('latitud', coordinates.coords.latitude);
+      //console.log('latitud', coordinates.coords.altitude);
+  }   
   
   ionViewWillEnter() {
     this.info();
   }
 
+ 
   async info() {
   
     this.rutstorage = await this.storage.get('rut');
@@ -55,6 +72,8 @@ export class MainPage implements OnInit {
     this.nombrePstorage = await this.storage.get('nombre');
     this.salastorage = await this.storage.get('sala');
     this.horastorage = await this.storage.get('hora');
+    this.regionstorage = await this.storage.get('region');
+    this.comunastorage = await this.storage.get('comuna');
 
     this.infoclase();
   }
@@ -76,6 +95,7 @@ export class MainPage implements OnInit {
     this.sala = ''+this.salastorage;
     this.nombrealumno='Nombre alumno: '+this.nomnbreAstorage;
     this.rut='Rut alumno: '+this.rutstorage;
+    this.residencia='Residencia alumno: '+this.regionstorage+', '+this.comunastorage;
     this.horasystem();
   }
 
@@ -98,6 +118,4 @@ export class MainPage implements OnInit {
       this.horaActual=`Hora de asistencia registrada: ${hora}:${minutos}`;
    }
   
-
-
 }

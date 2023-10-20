@@ -21,7 +21,8 @@ export class QrcodePage implements OnInit {
 
   constructor(private navCtrl: NavController, private storage: Storage) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.storage.create();
   }
 
   gotomain(){

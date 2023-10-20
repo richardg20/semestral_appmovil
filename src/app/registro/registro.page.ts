@@ -29,6 +29,9 @@ export class RegistroPage implements OnInit {
   carrera: string = '';
   contrasena: string = '';
   
+  selectedRegion: string = '';
+  selectedComuna: string = '';
+  
 
   constructor(private http: HttpClient, private navCtrl: NavController, private animationCtrl: AnimationController, private alertController: AlertController, private storage: Storage) {}
 
@@ -50,7 +53,9 @@ export class RegistroPage implements OnInit {
   }
   onRegionChange(event: any) {
     this.selectedRegionId = event.detail.value;
-    console.log('Selected Region ID:', this.selectedRegionId);
+    const selectedRegion = this.regions.find(region => region.id === this.selectedRegionId);
+    this.selectedRegion = selectedRegion ? selectedRegion.nombre : '';
+    console.log("la region es: "+this.selectedRegion)
     this.getComuna();
   }
   getComuna() {
@@ -58,6 +63,9 @@ export class RegistroPage implements OnInit {
       (response: any) => {
         this.comunas = response.data; // Assign the 'data' property
         console.log(this.comunas);
+        if (this.comunas.length > 0) {
+          this.selectedComuna = this.comunas[0].nombre; // Asígnalo al primer elemento por defecto
+        }
       },
       (error: any) => {
         console.error('Error:', error);
@@ -102,6 +110,18 @@ export class RegistroPage implements OnInit {
     await alert.present();
   }
 
+  async regiAlert2() {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: 'Todos los campos son obligatorios',
+      buttons: ['Aceptar']
+    });
+  
+    await alert.present();
+  }
+
+
+
   registro(){
     
     const nombreInput = document.getElementById('nombre') as HTMLInputElement;
@@ -121,81 +141,82 @@ export class RegistroPage implements OnInit {
     const carreraInput = document.getElementById('carrera') as HTMLInputElement;
     const carrera = carreraInput.value;
     
-    //const regionNombreInput = document.getElementById('region') as HTMLSelectElement;
-    //this.region = regionNombreInput.options[regionNombreInput.selectedIndex].text;
-
-    //const comunaNombreInput = document.getElementById('comuna') as HTMLSelectElement;
-    //this.comuna = comunaNombreInput.options[comunaNombreInput.selectedIndex].text;
     
+    // const comunaInput = document.getElementById('comuna') as HTMLSelectElement;
+    // this.selectedComuna = comunaInput.options[comunaInput.selectedIndex].text;
+    // console.log(this.selectedComuna)
 
-    if(nombre.length>3 && nombre.length<20){
-      if(apellido.length>3 && apellido.length<50){
-        if(carrera.length>3 && carrera.length<20){
-            if(contrasena.length>2 && contrasena.length<10){
-
-              //guardar datos storage
-
-              localStorage.setItem('rut',rut2);
-              localStorage.setItem('carrera',carrera);
-              localStorage.setItem('apellido',apellido);
-              localStorage.setItem('contrasena',contrasena);
-              localStorage.setItem('nombrealumno',nombre);
-              console.log("asasdasd");
-
-              this.storage.set("rut",rut2);
-              this.storage.set("carrera",carrera);
-              this.storage.set("apellido",apellido);
-              this.storage.set("contrasena",contrasena);
-              this.storage.set("nombrealumno",nombre);
-              //this.storage.set("region", this.region);
-              //this.storage.set("comuna", this.comuna);
-
-              this.limpiarcampos();
-              this.regiAlert();
-              this.backtohome();
-
-            }else{
-              console.log("1");
-              this.presentAlert();
-            }
+      if(nombre.length>3 && nombre.length<20){
+        if(apellido.length>3 && apellido.length<50){
+          if(carrera.length>3 && carrera.length<20){
+              if(contrasena.length>2 && contrasena.length<10){
+  
+                //guardar datos storage
+  
+                localStorage.setItem('rut',rut2);
+                localStorage.setItem('carrera',carrera);
+                localStorage.setItem('apellido',apellido);
+                localStorage.setItem('contrasena',contrasena);
+                localStorage.setItem('nombrealumno',nombre);
+                console.log("asasdasd");
+  
+                this.storage.set("rut",rut2);
+                this.storage.set("carrera",carrera);
+                this.storage.set("apellido",apellido);
+                this.storage.set("contrasena",contrasena);
+                this.storage.set("nombrealumno",nombre);
+                this.storage.set("region", this.selectedRegion);
+                this.storage.set("comuna", this.selectedComuna);
+  
+                this.limpiarcampos();
+                this.regiAlert();
+                this.backtohome();
+  
+              }else{
+                console.log("1");
+                this.presentAlert();
+              }
+          }else{
+            console.log("3");
+            this.presentAlert();
+          }
         }else{
-          console.log("3");
+          console.log("4");
           this.presentAlert();
         }
       }else{
-        console.log("4");
+        console.log("5");
         this.presentAlert();
       }
-    }else{
-      console.log("5");
-      this.presentAlert();
-    }
-  }
-  registrardatos(){
-    const nombreInput = document.getElementById('nombre') as HTMLInputElement;
-    const nombre = nombreInput.value;
 
-    const contrasenaInput = document.getElementById('contrasena') as HTMLInputElement;
-    const contrasena = contrasenaInput.value;
+   
+  }//fin clase
+
+  // registrardatos(){
+  //   const nombreInput = document.getElementById('nombre') as HTMLInputElement;
+  //   const nombre = nombreInput.value;
+
+  //   const contrasenaInput = document.getElementById('contrasena') as HTMLInputElement;
+  //   const contrasena = contrasenaInput.value;
     
-    const apellidoInput = document.getElementById('apellido') as HTMLInputElement;
-    const apellido = apellidoInput.value;
+  //   const apellidoInput = document.getElementById('apellido') as HTMLInputElement;
+  //   const apellido = apellidoInput.value;
     
-    const rutInput = document.getElementById('rut') as HTMLInputElement;
-    const rut = rutInput.value;
+  //   const rutInput = document.getElementById('rut') as HTMLInputElement;
+  //   const rut = rutInput.value;
     
-    const carreraInput = document.getElementById('carrera') as HTMLInputElement;
-    const carrera = carreraInput.value;
-     console.log(nombre);
-     console.log(contrasena);
-     console.log(apellido);
-     console.log(rut);
-     console.log(carrera);
-     localStorage.setItem('rut',rut);
-     localStorage.setItem('carrera',carrera);
-     localStorage.setItem('apellido',apellido);
-     localStorage.setItem('contrasena',contrasena);
-     localStorage.setItem('nombre',nombre);
-  }
+  //   const carreraInput = document.getElementById('carrera') as HTMLInputElement;
+  //   const carrera = carreraInput.value;
+  //    console.log(nombre);
+  //    console.log(contrasena);
+  //    console.log(apellido);
+  //    console.log(rut);
+  //    console.log(carrera);
+  //    localStorage.setItem('rut',rut);
+  //    localStorage.setItem('carrera',carrera);
+  //    localStorage.setItem('apellido',apellido);
+  //    localStorage.setItem('contrasena',contrasena);
+  //    localStorage.setItem('nombre',nombre);
+  // }
 
 }
