@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-recuperar',
@@ -10,14 +11,17 @@ import { NavController } from '@ionic/angular';
 export class RecuperarPage implements OnInit {
 
   nombre: string= '';
+  nombre2: string= '';
 
   contrasenad: string = '';
   confirmarc: string = '';
 
-  constructor(private alertController: AlertController, private navCtrl: NavController) {}
+  constructor(private alertController: AlertController, private navCtrl: NavController, private storage: Storage) {}
 
-  ngOnInit() {
-    this.nombrec();
+  async ngOnInit() {
+    this.nombre2 = await this.storage.get("nombrealumno");
+    this.nombre = 'Nombre Alumno: ' + this.nombre2;
+
   }
 
 
@@ -59,8 +63,10 @@ export class RecuperarPage implements OnInit {
     console.log(contrasena);
 
     if(contrasena===confirmar){
-      localStorage.setItem("contrasena",confirmar);
-      console.log("si");
+
+      //localStorage.setItem("contrasena",confirmar);
+      this.storage.set("contrasena",confirmar);
+      
       this.limpiar();
       this.passAlert();
       this.backtohome();
@@ -69,10 +75,7 @@ export class RecuperarPage implements OnInit {
       this.presentAlert();
     }
   }
-  nombrec(){
-    const nombre1 = localStorage.getItem('nombrealumno');
-    this.nombre = 'Nombre Alumno: ' + nombre1;
-  }
+
   backtohome() {
     this.navCtrl.navigateForward('/home');
   }
