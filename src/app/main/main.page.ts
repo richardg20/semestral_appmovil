@@ -14,6 +14,9 @@ export class MainPage implements OnInit {
   latitude: number=0;
   longitude: number=0;
 
+  latitudeDMM: string='';
+  longitudeDMM: string='';
+
   capturedImage: string='';
 
   nombreprof: string= '';
@@ -56,9 +59,8 @@ export class MainPage implements OnInit {
       console.log(this.nombrePstorage)
 
       const coordinates = await Geolocation.getCurrentPosition();
-      //console.log('Current position:', coordinates);
-      //console.log('latitud', coordinates.coords.latitude);
-      //console.log('latitud', coordinates.coords.altitude);
+       this.latitude = coordinates.coords.latitude;
+       this.longitude = coordinates.coords.longitude;
   }   
   
   ionViewWillEnter() {
@@ -76,8 +78,20 @@ export class MainPage implements OnInit {
     this.regionstorage = await this.storage.get('region');
     this.comunastorage = await this.storage.get('comuna');
     this.capturedImage = await this.storage.get('capturedImage');
+    const coordinates = await Geolocation.getCurrentPosition();
+    this.latitude = coordinates.coords.latitude;
+    this.longitude = coordinates.coords.longitude;
+    this.latitudeDMM = this.convertToDMM(this.latitude);
+    this.longitudeDMM = this.convertToDMM(this.longitude);
 
     this.infoclase();
+  }
+  convertToDMM(coordinate: number): string {
+    const absolute = Math.abs(coordinate);
+    const degrees = Math.floor(absolute);
+    const minutes = (absolute - degrees) * 60;
+    const seconds = (minutes - Math.floor(minutes)) * 60;
+    return `${degrees}° ${Math.floor(minutes)}' ${seconds.toFixed(2)}"`;
   }
 
   backtohome() {
