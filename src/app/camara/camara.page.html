@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>camara</ion-title>
+    <ion-title>Selfie</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +10,8 @@
       <ion-title size="large">camara</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <ion-button expand="block" (click)="selfie()">tomar selfie</ion-button>
+  <ion-button [routerLink]="['/home']" expand="block" > VOLVER A MENU PRINCIPAL</ion-button>
 </ion-content>
