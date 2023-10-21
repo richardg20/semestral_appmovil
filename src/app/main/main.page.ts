@@ -14,6 +14,7 @@ export class MainPage implements OnInit {
   latitude: number=0;
   longitude: number=0;
 
+  capturedImage: string='';
 
   nombreprof: string= '';
   sala: string= '';
@@ -74,6 +75,7 @@ export class MainPage implements OnInit {
     this.horastorage = await this.storage.get('hora');
     this.regionstorage = await this.storage.get('region');
     this.comunastorage = await this.storage.get('comuna');
+    this.capturedImage = await this.storage.get('capturedImage');
 
     this.infoclase();
   }

@@ -37,6 +37,9 @@
       </ion-card-header>
 
        <div class="datos">
+
+        <ion-img *ngIf="capturedImage" [src]="capturedImage"></ion-img>
+        <br>
         <ion-card-content>
         <br>
         <ion-label id="nombrealumno">{{ nombrealumno }}</ion-label>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType,CameraSource } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Storage } from '@ionic/storage-angular';
+import { NavController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-camara',
@@ -8,29 +11,32 @@ import { Camera, CameraResultType,CameraSource } from '@capacitor/camera';
 })
 export class CamaraPage implements OnInit {
 
-  constructor() { }
+  constructor( private storage: Storage, private navCtrl: NavController) { }
 
   ngOnInit() {
     Camera.checkPermissions()
+    this.storage.create();
   }
 
-  async selfie(){
-    
-  debugger;
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Camera
-    });
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    var imageUrl = image.webPath;
+  async takeSelfie() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+      });
 
-    // Can be set to the src of an image now
-      //imageElement.src = imageUrl;
-    
+      await this.storage.set('capturedImage', 'data:image/jpeg;base64,' + image.base64String);
+
+    } catch (error) {
+      console.error('Error al tomar la foto', error);
+    }
+    this.main();
   }
+
+  main(){
+    this.navCtrl.navigateForward('/main');
+  }
+
 }
