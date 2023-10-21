@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Result } from '@zxing/library';
-import { BarcodeFormat } from '@zxing/library';
+import { BarcodeFormat, BrowserMultiFormatReader, DecodeHintType } from '@zxing/library';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-qrcode',
@@ -12,6 +13,7 @@ import { Storage } from '@ionic/storage';
 export class QrcodePage implements OnInit {
 
     
+  
   title = 'qr-reader';
   public cameras:MediaDeviceInfo[]=[];
   public myDevice!: MediaDeviceInfo;
@@ -69,8 +71,12 @@ export class QrcodePage implements OnInit {
     console.log(info[1]);
     console.log(info[2]);
 
-    this.gotomain()
+    this.gotoselfie()
     this.desactivarCamara();
+  }
+
+  gotoselfie(){
+    this.navCtrl.navigateForward('/camara');
   }
 
   selectCamera(cameraLabel: string){    

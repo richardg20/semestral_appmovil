@@ -35,11 +35,11 @@
       <ion-card-header>
         <ion-card-title>Información alumno</ion-card-title>
       </ion-card-header>
-
-       <div class="datos">
-
+      <br>
+      <div class="imagen-peque">
         <ion-img *ngIf="capturedImage" [src]="capturedImage"></ion-img>
-        <br>
+      </div>
+       <div class="datos">
         <ion-card-content>
         <br>
         <ion-label id="nombrealumno">{{ nombrealumno }}</ion-label>
@@ -47,7 +47,8 @@
         <ion-label id="rut">{{ rut }}</ion-label>
         <br>
         <ion-label id="residencia">{{ residencia }}</ion-label>
-          
+        <br>
+        <br>
         </ion-card-content>
       </div> 
 

@@ -1,9 +1,8 @@
 .datos{
   display: flex;
   justify-content: center; 
-  align-items: center;
+  //align-items: center;
   height: 25vh; 
-  margin: 15px;
 }
 
 #reloj {
@@ -13,4 +12,11 @@
   #fecha {
     font-size: 16px;
     margin-top: 10px;
+  }
+
+  .imagen-peque {
+    display: flex;
+    justify-content: center; 
+    height: 250px; 
+    
   }

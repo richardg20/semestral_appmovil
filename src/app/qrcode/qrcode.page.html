@@ -29,8 +29,8 @@
     <zxing-scanner style="width: 500px;" [enable]="scannerEnabled" [device]="myDevice"
       (camerasFound)="camerasFoundHandler($event)" (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
     <p *ngFor="let result of results">{{result}}</p>
+    
     <br>
-    <ion-button [routerLink]="['/camara']" expand="block" > bypassL</ion-button>
     <ion-button expand="block" (click)="backtohome()">Volver a home</ion-button>
 
   </div>
