@@ -11,7 +11,8 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   styleUrls: ['./qrcode.page.scss'],
 })
 export class QrcodePage implements OnInit {
-
+  
+  login: number=1;
     
   
   title = 'qr-reader';
@@ -25,6 +26,7 @@ export class QrcodePage implements OnInit {
 
   async ngOnInit() {
     this.storage.create();
+    this.storage.set("login",this.login);
   }
 
   gotomain(){

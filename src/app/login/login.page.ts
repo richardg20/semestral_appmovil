@@ -12,6 +12,7 @@ export class LoginPage implements OnInit {
 
   rutstorage: string = "";
   contstorage: string = ""; 
+  login1: number = 0;
 
   constructor(private navCtrl: NavController,private alertController: AlertController, private storage: Storage) { }
 
@@ -54,6 +55,8 @@ export class LoginPage implements OnInit {
 
     if(rut != "" && contrasena !=""){
       if( rut === this.rutstorage && contrasena===this.contstorage){
+        this.login1=1;
+        this.storage.set("login",this.login1);
         this.qrcode();
       }else{
         this.presentAlert();

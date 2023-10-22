@@ -15,11 +15,13 @@ export class HomePage {
   constructor(private navCtrl: NavController, private animationCtrl: AnimationController, private alertController: AlertController, private storage:Storage) {}
 
   rut: string="";
+  login: number=0;
 
   async ngOnInit() {
     
     await this.storage.create();
     this.updateRut();
+    this.storage.set("login",this.login);
   }
 
   ionViewWillEnter() {

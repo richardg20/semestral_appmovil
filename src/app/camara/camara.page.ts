@@ -11,11 +11,14 @@ import { NavController } from '@ionic/angular';
 })
 export class CamaraPage implements OnInit {
 
+  login: number=1;
+
   constructor( private storage: Storage, private navCtrl: NavController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     Camera.checkPermissions()
     this.storage.create();
+    this.storage.set("login",this.login);
   }
 
   async takeSelfie() {

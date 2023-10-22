@@ -11,6 +11,8 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class MainPage implements OnInit {
 
+  login: number=1;
+
   latitude: number=0;
   longitude: number=0;
 
@@ -43,6 +45,7 @@ export class MainPage implements OnInit {
 
   async ngOnInit() {
     this.storage.create();
+    this.storage.set("login",this.login);
       this.rutstorage = await this.storage.get('rut');
       this.nomnbreAstorage = await this.storage.get('nombrealumno');
       this.nombrePstorage = await this.storage.get('nombre');
