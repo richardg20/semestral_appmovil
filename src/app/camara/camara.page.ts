@@ -42,4 +42,8 @@ export class CamaraPage implements OnInit {
     this.navCtrl.navigateForward('/main');
   }
 
+  backtohome() {
+    this.storage.set("login",0);
+    this.navCtrl.navigateForward('/home');
+  }
 }

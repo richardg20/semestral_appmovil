@@ -19,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule)
+    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule),
+    canActivate: [PermisosGuard]
   },
   {
     path: 'registro',
@@ -35,7 +36,8 @@ const routes: Routes = [
   },
   {
     path: 'camara',
-    loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule)
+    loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule),
+    canActivate: [PermisosGuard]
   },
   {
     path: 'e404',

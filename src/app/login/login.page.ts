@@ -14,6 +14,8 @@ export class LoginPage implements OnInit {
   contstorage: string = ""; 
   login1: number = 0;
 
+  login2: number=0;
+
   constructor(private navCtrl: NavController,private alertController: AlertController, private storage: Storage) { }
 
   async ngOnInit() {
@@ -31,6 +33,10 @@ export class LoginPage implements OnInit {
       this.datos();
     }
 
+  async ngOnDestroy(){
+    this.login2 = await this.storage.get('login');
+    }  
+    
   async datos(){
     this.rutstorage = await this.storage.get('rut');
     this.contstorage = await this.storage.get('contrasena');
@@ -57,6 +63,7 @@ export class LoginPage implements OnInit {
       if( rut === this.rutstorage && contrasena===this.contstorage){
         this.login1=1;
         this.storage.set("login",this.login1);
+        this.datos()
         this.qrcode();
       }else{
         this.presentAlert();

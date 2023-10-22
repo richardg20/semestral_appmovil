@@ -1,30 +1,52 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable, from } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { switchMap, map } from 'rxjs/operators';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PermisosGuard implements CanActivate {
-  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
-    if(this.verlogin()){
-      return true;
-    }
-    else{
-      this.presentAlert();
-      this.backtohome();
-      return false;
-    }
-     
-      
-  }
 
   constructor(private navCtrl: NavController, private alertController: AlertController, private storage:Storage,private router: Router) {}
+
+
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return from(this.storage.create()).pipe(
+      switchMap(() => from(this.storage.get("login"))),
+      map((login: number) => {
+        if (login === 1) {
+          return true;
+        } else {
+          this.presentAlert();
+          this.backtohome();
+          return false;
+        }
+      })
+    );
+  }
+
+  // canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    
+  //   if(this.verlogin()){
+  //     return true;
+  //   }
+  //   else{
+  //     this.presentAlert();
+  //     this.backtohome();
+  //     return false;
+  //   }
+     
+      
+  // }
+
+ 
 
    login: number=0;
   
@@ -32,6 +54,7 @@ export class PermisosGuard implements CanActivate {
      this.storage.create();
      this.login=await this.storage.get("login");
    }
+
    ionViewWillEnter() {
      this.getdata();
    }

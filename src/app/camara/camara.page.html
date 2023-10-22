@@ -11,7 +11,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-label> Es neceasio tomar selfie </ion-label>
-  <ion-button expand="block" (click)="takeSelfie()">Tomar Selfie</ion-button>
-  <ion-button [routerLink]="['/home']" expand="block" > VOLVER A MENU PRINCIPAL</ion-button>
+  <div class="uwu">
+    <div class="imagen-peque">
+      <ion-img src="assets/images/camara.png"></ion-img>
+    </div>
+    <div class="datos">
+      <ion-label> <strong > DEBE TOMARSE UNA SELFIE 😈</strong> </ion-label>
+    </div>
+  </div>
+  
+  
+  <ion-button expand="block" (click)="takeSelfie()">TOMAR SELFIE</ion-button>
+  <ion-button expand="block" (click)="backtohome()">VOLVER A HOME</ion-button>
 </ion-content>

@@ -37,6 +37,7 @@ export class QrcodePage implements OnInit {
 
   
   backtohome() {
+    this.storage.set("login",0);
     this.navCtrl.navigateForward('/home');
   }
 
